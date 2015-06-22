@@ -134,7 +134,7 @@ img {
 <div id="header">
 <h1 class="title">tidyr tutorial</h1>
 <h4 class="author"><em>Joseph V. Casillas</em></h4>
-<h4 class="date"><em>Updated: 2015-06-22 13:17:09</em></h4>
+<h4 class="date"><em>Updated: 2015-06-22 15:34:25</em></h4>
 </div>
 
 
@@ -142,8 +142,8 @@ img {
 <h2>Overview</h2>
 <p>In order to facilitate the data analysis pipeline, it is crucial to have <code>tidy data</code>. What this means is that <strong>every column in your data frame represents a variable and every row represents an observation</strong>. This is also referred to as <em>long format</em> (as opposed to wide format).</p>
 <p><code>tidyr</code> is a package that provides useful functions for converting raw data into tidy data. This is typically the first step in the data analysis pipeline after you have collected your data.</p>
-<p><div id="htmlwidget-9233" style="width:672px;height:200px;" class="DiagrammeR"></div>
-<script type="application/json" data-for="htmlwidget-9233">{"x":{"diagram":"\ngraph LR\nA[1. Collect data]-->B(2. tidy data) \nB-->C{3. transform data}\nC-->D(4a. visualize data)\nD-->C\nC-->E(4b. analyze data)\nE-->C\nD-->F[New insight]\nE-->F\n\nstyle A fill:#DCEBE3\nstyle B fill:#77DFC9\nstyle C fill:#DEDBBA\nstyle D fill:#F8F0CC\nstyle E fill:#F8F0CC\nstyle F fill:#DCEBE3\n"},"evals":[]}</script></p>
+<p><div id="htmlwidget-9732" style="width:672px;height:200px;" class="DiagrammeR"></div>
+<script type="application/json" data-for="htmlwidget-9732">{"x":{"diagram":"\ngraph LR\nA[1. Collect data]-->B(2. tidy data) \nB-->C{3. transform data}\nC-->D(4a. visualize data)\nD-->C\nC-->E(4b. analyze data)\nE-->C\nD-->F[New insight]\nE-->F\n\nstyle A fill:#DCEBE3\nstyle B fill:#77DFC9\nstyle C fill:#DEDBBA\nstyle D fill:#F8F0CC\nstyle E fill:#F8F0CC\nstyle F fill:#DCEBE3\n"},"evals":[]}</script></p>
 <p>This tutorial will focus on step 2 of the process. The main verbs we will use are:</p>
 <ul>
 <li><code>gather()</code> and <code>spread()</code> in order to convert between long and wide data</li>
@@ -160,14 +160,14 @@ img {
 <pre class="r"><code>library(tidyr); library(dplyr)
 
 set.seed(1)
-gather.ex &lt;- data.frame(
+tidyr.ex &lt;- data.frame(
   participant = c(&quot;p1&quot;, &quot;p2&quot;, &quot;p3&quot;, &quot;p4&quot;, &quot;p5&quot;, &quot;p6&quot;), 
   info = c(&quot;g1m&quot;, &quot;g1m&quot;, &quot;g1f&quot;, &quot;g2m&quot;, &quot;g2m&quot;, &quot;g2m&quot;),
   day1score = rnorm(n = 6, mean = 80, sd = 15), 
   day2score = rnorm(n = 6, mean = 88, sd = 8)
 )
 
-print(gather.ex)</code></pre>
+print(tidyr.ex)</code></pre>
 <pre><code>##   participant info day1score day2score
 ## 1          p1  g1m  70.60319  91.89943
 ## 2          p2  g1m  82.75465  93.90660
@@ -175,7 +175,7 @@ print(gather.ex)</code></pre>
 ## 4          p4  g2m 103.92921  85.55689
 ## 5          p5  g2m  84.94262 100.09425
 ## 6          p6  g2m  67.69297  91.11875</code></pre>
-<pre class="r"><code>gather.ex %&gt;%
+<pre class="r"><code>tidyr.ex %&gt;%
   gather(day, score, c(day1score, day2score))</code></pre>
 <pre><code>##    participant info       day     score
 ## 1           p1  g1m day1score  70.60319
@@ -198,7 +198,7 @@ print(gather.ex)</code></pre>
 <li>This is a compliment of <code>gather()</code>. The `spread() verb takes different levels of a factor and spreads them out into different columns. This means we can convert from long data to wide.</li>
 <li>`spread(df, var1, var2)</li>
 </ul>
-<pre class="r"><code>gather.ex %&gt;%
+<pre class="r"><code>tidyr.ex %&gt;%
   gather(day, score, c(day1score, day2score)) %&gt;%
   spread(day, score)</code></pre>
 <pre><code>##   participant info day1score day2score
@@ -218,7 +218,7 @@ print(gather.ex)</code></pre>
 <li><code>separate(df, col, into, sep)</code></li>
 </ul>
 <p>Consider the column <code>info</code> of our fake data. You can probably guess what observations represent. How many variables are there? Take a second to think about it if it doesn’t jump out at you. The answer is 2. <code>g1</code> and <code>g2</code> appear to be a grouping variable (g = group) and <code>m</code> <code>f</code> is an indication of gender. Because there are two separate variables, there should be two columns in the data frame… one for <code>group</code> and one for <code>gender</code>.</p>
-<pre class="r"><code>gather.ex %&gt;%
+<pre class="r"><code>tidyr.ex %&gt;%
   gather(day, score, c(day1score, day2score)) %&gt;%
   separate(col = info, into = c(&quot;group&quot;, &quot;gender&quot;), sep = 2)</code></pre>
 <pre><code>##    participant group gender       day     score
@@ -241,7 +241,7 @@ print(gather.ex)</code></pre>
 <li>Unite does the opposite of spread. In my experience, this is not something that needs to be done very often.</li>
 <li>unite(df, newVarName, col1, col2)</li>
 </ul>
-<pre class="r"><code>gather.ex %&gt;%
+<pre class="r"><code>tidyr.ex %&gt;%
   gather(day, score, c(day1score, day2score)) %&gt;%
   separate(col = info, into = c(&quot;group&quot;, &quot;gender&quot;), sep = 2) %&gt;%
   unite(infoAgain, group, gender)</code></pre>
@@ -259,7 +259,7 @@ print(gather.ex)</code></pre>
 ## 11          p5      g2_m day2score 100.09425
 ## 12          p6      g2_m day2score  91.11875</code></pre>
 <p>Now that our data are tidy (using just the <code>gather()</code> and <code>separate()</code> verbs), we can plot and analyze it.</p>
-<pre class="r"><code>gather.ex %&gt;%
+<pre class="r"><code>tidyr.ex %&gt;%
   gather(day, score, c(day1score, day2score)) %&gt;%
   separate(col = info, into = c(&quot;group&quot;, &quot;gender&quot;), sep = 2) %&gt;%
   ggplot(aes(x = day, y = score)) + 

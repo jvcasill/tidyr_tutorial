@@ -55,16 +55,16 @@ linguistic research (i.e. when separating columns in praat).
 library(tidyr); library(dplyr)
 
 set.seed(1)
-gather.ex <- data.frame(
+tidyr.ex <- data.frame(
   participant = c("p1", "p2", "p3", "p4", "p5", "p6"), 
   info = c("g1m", "g1m", "g1f", "g2m", "g2m", "g2m"),
   day1score = rnorm(n = 6, mean = 80, sd = 15), 
   day2score = rnorm(n = 6, mean = 88, sd = 8)
 )
 
-print(gather.ex)
+print(tidyr.ex)
 
-gather.ex %>%
+tidyr.ex %>%
   gather(day, score, c(day1score, day2score))
 ```
 
@@ -77,7 +77,7 @@ Essentially we took the columns `day1score` and `day2score`, which represent the
 
 
 ```{r, eval=TRUE}
-gather.ex %>%
+tidyr.ex %>%
   gather(day, score, c(day1score, day2score)) %>%
   spread(day, score)
 ```
@@ -100,7 +100,7 @@ variables, there should be two columns in the data frame... one for
 
 
 ```{r, eval=TRUE}
-gather.ex %>%
+tidyr.ex %>%
   gather(day, score, c(day1score, day2score)) %>%
   separate(col = info, into = c("group", "gender"), sep = 2)
 ```
@@ -112,7 +112,7 @@ something that needs to be done very often.
 - unite(df, newVarName, col1, col2)
 
 ```{r, eval=TRUE}
-gather.ex %>%
+tidyr.ex %>%
   gather(day, score, c(day1score, day2score)) %>%
   separate(col = info, into = c("group", "gender"), sep = 2) %>%
   unite(infoAgain, group, gender)
@@ -121,7 +121,7 @@ gather.ex %>%
 Now that our data are tidy (using just the ```gather()``` and ```separate()``` verbs), we can plot and analyze it. 
 
 ```{r, fig.align='center'}
-gather.ex %>%
+tidyr.ex %>%
   gather(day, score, c(day1score, day2score)) %>%
   separate(col = info, into = c("group", "gender"), sep = 2) %>%
   ggplot(aes(x = day, y = score)) + 
