@@ -134,7 +134,7 @@ img {
 <div id="header">
 <h1 class="title">tidyr tutorial</h1>
 <h4 class="author"><em>Joseph V. Casillas</em></h4>
-<h4 class="date"><em>Updated: 2015-06-22 13:12:14</em></h4>
+<h4 class="date"><em>Updated: 2015-06-22 13:17:09</em></h4>
 </div>
 
 
@@ -142,8 +142,8 @@ img {
 <h2>Overview</h2>
 <p>In order to facilitate the data analysis pipeline, it is crucial to have <code>tidy data</code>. What this means is that <strong>every column in your data frame represents a variable and every row represents an observation</strong>. This is also referred to as <em>long format</em> (as opposed to wide format).</p>
 <p><code>tidyr</code> is a package that provides useful functions for converting raw data into tidy data. This is typically the first step in the data analysis pipeline after you have collected your data.</p>
-<p><div id="htmlwidget-299" style="width:672px;height:200px;" class="DiagrammeR"></div>
-<script type="application/json" data-for="htmlwidget-299">{"x":{"diagram":"\ngraph LR\nA[1. Collect data]-->B(2. tidy data) \nB-->C{3. transform data}\nC-->D(4a. visualize data)\nD-->C\nC-->E(4b. analyze data)\nE-->C\nD-->F[New insight]\nE-->F\n\nstyle A fill:#DCEBE3\nstyle B fill:#77DFC9\nstyle C fill:#DEDBBA\nstyle D fill:#F8F0CC\nstyle E fill:#F8F0CC\nstyle F fill:#DCEBE3\n"},"evals":[]}</script></p>
+<p><div id="htmlwidget-9233" style="width:672px;height:200px;" class="DiagrammeR"></div>
+<script type="application/json" data-for="htmlwidget-9233">{"x":{"diagram":"\ngraph LR\nA[1. Collect data]-->B(2. tidy data) \nB-->C{3. transform data}\nC-->D(4a. visualize data)\nD-->C\nC-->E(4b. analyze data)\nE-->C\nD-->F[New insight]\nE-->F\n\nstyle A fill:#DCEBE3\nstyle B fill:#77DFC9\nstyle C fill:#DEDBBA\nstyle D fill:#F8F0CC\nstyle E fill:#F8F0CC\nstyle F fill:#DCEBE3\n"},"evals":[]}</script></p>
 <p>This tutorial will focus on step 2 of the process. The main verbs we will use are:</p>
 <ul>
 <li><code>gather()</code> and <code>spread()</code> in order to convert between long and wide data</li>
